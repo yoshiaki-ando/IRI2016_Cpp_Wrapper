@@ -1,0 +1,10 @@
+data/
+*.o
+*.for
+*.dat
+*.asc
+*.tgz
+fort.7
+main
+00readme.txt
+libiri2016*

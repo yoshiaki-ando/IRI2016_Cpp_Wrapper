@@ -1,0 +1,102 @@
+diff -uprN 210807IRI_diff_src2/igrf.for 210807IRI_diff_test/igrf.for
+--- 210807IRI_diff_src2/igrf.for	2020-09-21 12:50:54.000000000 +0900
++++ 210807IRI_diff_test/igrf.for	2021-08-07 06:23:41.816414673 +0900
+@@ -723,7 +723,9 @@ C --------------------------------------
+  667    FORMAT(A13)
+ c-web-for webversion
+ c 667    FORMAT('/var/www/omniweb/cgi/vitmo/IRI/',A13)
+-        OPEN (IU, FILE=FOUT, STATUS='OLD', IOSTAT=IER, ERR=999)     
++        OPEN (IU,
++     &FILE=DATA_DIR//'/'//FOUT,
++     *        STATUS='OLD',IOSTAT=IER, ERR=999)
+         READ (IU, *, IOSTAT=IER, ERR=999)                            
+         READ (IU, *, IOSTAT=IER, ERR=999) NMAX, ERAD, XMYEAR 
+         nm=nmax*(nmax+2)                
+diff -uprN 210807IRI_diff_src2/irifun.for 210807IRI_diff_test/irifun.for
+--- 210807IRI_diff_src2/irifun.for	2020-10-13 10:10:24.000000000 +0900
++++ 210807IRI_diff_test/irifun.for	2021-08-07 06:23:41.820414614 +0900
+@@ -5845,7 +5845,10 @@ c     .. local arrays ..
+ c
+       if (coeff_month_read(month) .eq. 0) then
+         write(filedata, 10) month+10
+-        open(10, File=filedata, status='old')
++        open(10,
++     &  File=DATA_DIR//'/'//filedata,
++     &  status='old')
++
+ 	  do j=0,47
+ 	    read(10,20) (coeff_month_all(i,j,month),i=0,148)
+         end do
+@@ -8785,7 +8788,9 @@ c---------------------------------------
+            
+            common /igrz/aig,arz,iymst,iymend
+ 
+-           open(unit=12,file='ig_rz.dat',FORM='FORMATTED',status='old')
++           open(unit=12,
++     &file=DATA_DIR//'/'//'ig_rz.dat',
++     *       FORM='FORMATTED',status='old')
+ 
+ c-web- special for web version
+ c            open(unit=12,file=
+@@ -8965,7 +8970,9 @@ C
+         DIMENSION 	af107(23000,3)
+         COMMON		/apfa/aap,af107,n
+ 
+-        Open(13,FILE='apf107.dat',FORM='FORMATTED',STATUS='OLD')
++        Open(13,
++     &FILE=DATA_DIR//'/'//'apf107.dat',
++     *       FORM='FORMATTED',STATUS='OLD')
+ c-web-sepcial vfor web version
+ c      OPEN(13,FILE='/var/www/omniweb/cgi/vitmo/IRI/apf107.dat',
+ c     *    FORM='FORMATTED',STATUS='OLD')
+diff -uprN 210807IRI_diff_src2/irisub.for 210807IRI_diff_test/irisub.for
+--- 210807IRI_diff_src2/irisub.for	2020-10-13 10:10:38.000000000 +0900
++++ 210807IRI_diff_test/irisub.for	2021-08-07 06:27:24.033139932 +0900
+@@ -1202,8 +1202,9 @@ C
+ 104         FORMAT('ccir',I2,'.asc')
+ c-web-for webversion
+ c104     FORMAT('/var/www/omniweb/cgi/vitmo/IRI/ccir',I2,'.asc')
+-        OPEN(IUCCIR,FILE=FILNAM,STATUS='OLD',ERR=8448,
+-     &          FORM='FORMATTED')
++      OPEN(IUCCIR,
++     &FILE=DATA_DIR//'/'//FILNAM,
++     &  STATUS='OLD',ERR=8448,FORM='FORMATTED')
+         READ(IUCCIR,4689) F2,FM3
+ 4689    FORMAT(1X,4E15.8)
+         CLOSE(IUCCIR)
+@@ -1215,8 +1216,9 @@ C
+ 1144          FORMAT('ursi',I2,'.asc')
+ c-web-for webversion
+ c1144    FORMAT('/var/www/omniweb/cgi/vitmo/IRI/ursi',I2,'.asc')
+-          OPEN(IUCCIR,FILE=FILNAM,STATUS='OLD',ERR=8448,
+-     &         FORM='FORMATTED')
++          OPEN(IUCCIR,
++     &FILE=DATA_DIR//'/'//FILNAM,
++     &STATUS='OLD', ERR=8448,FORM='FORMATTED')
+           READ(IUCCIR,4689) F2
+           CLOSE(IUCCIR)
+         endif
+@@ -1233,8 +1235,9 @@ c first CCIR ...........................
+ c
+ 
+         WRITE(FILNAM,104) NMONTH+10
+-        OPEN(IUCCIR,FILE=FILNAM,STATUS='OLD',ERR=8448,
+-     &          FORM='FORMATTED')
++        OPEN(IUCCIR,
++     &FILE=DATA_DIR//'/'//FILNAM,
++     &STATUS='OLD', ERR=8448,FORM='FORMATTED')
+         READ(IUCCIR,4689) F2N,FM3N
+         CLOSE(IUCCIR)
+ 
+@@ -1243,8 +1246,9 @@ C then URSI if chosen ..................
+ C
+         if(URSIF2) then
+           WRITE(FILNAM,1144) NMONTH+10
+-          OPEN(IUCCIR,FILE=FILNAM,STATUS='OLD',ERR=8448,
+-     &         FORM='FORMATTED')
++          OPEN(IUCCIR,
++     &FILE=DATA_DIR//'/'//FILNAM,
++     &STATUS='OLD', ERR=8448,FORM='FORMATTED')
+           READ(IUCCIR,4689) F2N
+           CLOSE(IUCCIR)
+           endif
