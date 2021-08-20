@@ -10,9 +10,8 @@ Then, extract tar files in the same directory of the sources.
 % patch -p1 < iri2016_cpp.patch
 ```
 
-3. make ; make install
-<br>
-Edit Makefile if necessary, especially PREFIX
+3. Edit Makefile if necessary, especially PREFIX, and then type `make ; make install`
+
 
 4. make test_main
 ```Tcsh
@@ -28,12 +27,12 @@ Edit Makefile if necessary, especially PREFIX
 #include <iri2016.h>
 
 AndoLab::iri2016 iri;
-AndoLab::iri.set_coord(35.0f, 142.0f); /* geographic coordinate */
-AndoLab::iri.set_datetime(2015, 10, 1, 12, 0); /* UT */
-AndoLab::iri.set_height(80.0f, 400.0f, 1.0f);
+iri.set_coord(35.0f, 142.0f); /* geographic coordinate */
+iri.set_datetime(2015, 10, 1, 12, 0); /* UT */
+iri.set_height(80.0f, 400.0f, 1.0f);
 
 float *Ne = new float [320];
-AndoLab::iri.get_Ne(Ne);
+iri.get_Ne(Ne);
 ```
 
 ## TODO
