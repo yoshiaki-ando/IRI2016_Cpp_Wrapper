@@ -1,7 +1,7 @@
 PREFIX = $(HOME)
 LIB_DIR = $(PREFIX)/lib
 INC_DIR = $(PREFIX)/include
-DATA_DIR = $(PREFIX)/share/iri2016 # directory for datafiles 
+DATA_DIR = $(PREFIX)/share/iri2016
 
 OPTS = -O3 -Wall -fPIC
 TEST_OPTS = -O3 -Wall -fPIC
@@ -34,7 +34,13 @@ test_main: test_main.o
 	g++ -o $@ test_main.o -Wl,-R$(LIB_DIR) -L$(LIB_DIR) -liri2016$(LIB_SUFFIX) -lgfortran
 
 install: $(TARGET)
+	@if [ ! -d $(LIB_DIR) ]; then \
+	  mkdir -p $(LIB_DIR); \
+	fi
 	cp $(TARGET) $(LIB_DIR)
+	@if [ ! -d $(INC_DIR) ]; then \
+	  mkdir -p $(INC_DIR); \
+	fi
 	cp iri2016.h $(INC_DIR)
 	@if [ ! -d $(DATA_DIR) ]; then \
     mkdir -p $(DATA_DIR); \

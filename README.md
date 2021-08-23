@@ -1,9 +1,11 @@
 # IRI2016 C++ Wrapper by AndoLab
 
 ## Install
+0. install gfortran. `sudo apt install gfortran`
+
 1. download IRI files (00_iri.tar) from [IRI site](http://irimodel.org/IRI-2016/),
 and CCIR and URSI files (00_ccir-ursi.tar) from [COMMON_FILES in IRI site](http://irimodel.org/COMMON_FILES/), and the solar and magnetic indices files [apf107.dat](https://chain-new.chain-project.net/echaim_downloads/apf107.dat) and [ig_rz.dat](https://chain-new.chain-project.net/echaim_downloads/ig_rz.dat).
-Then, extract tar files in the same directory of the sources.
+Then, extract tar files in the same directory of the sources, i.e. `tar xvf 00_ccir-ursi.tar`, etc.
 
 2. patch
 ```Tcsh
