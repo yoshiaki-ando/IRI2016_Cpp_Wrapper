@@ -37,6 +37,27 @@ float *Ne = new float [320];
 iri.get_Ne(Ne);
 ```
 
+## Original Model
+IRI does not provide Ne at the altitude about 60km, which is important for VLF/LF propagation.
+To overcome the problem, we create an original model. It use the Danilov model up to the altitude
+where the IRI provides Ne.
+
+### usage
+```C++:exmple
+#include <iri2016.h>
+
+AndoLab::iri2016 iri;
+iri.set_coord(35.0f, 142.0f); /* geographic coordinate */
+iri.set_datetime(2015, 10, 1, 12, 0); /* UT */
+
+constexpr float Alt_min { 60.0f };  /* in km */
+constexpr float Alt_max { 110.0f }; /* in km */
+constexpr float Alt_stp { 1.0f };   /* in km */
+constexpr int N int( (Alt_max - Alt_min)/Alt_stp ) + 1; /* Points */
+float *Ne = new float [ N ];
+original_model(N, Alt_min, Alt_stp, iri, Ne);
+```
+
 ## TODO
 * implement options
 

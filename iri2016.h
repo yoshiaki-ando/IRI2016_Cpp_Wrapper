@@ -71,6 +71,9 @@ public:
    const float height_end_km,
    const float height_step_km);
 
+  int get_month(void){ return mmdd/100; }
+  int get_hour(void){ return int(hour); }
+
   /* Obtain calculated results */
   void get_parameter(parameter, float *array);
   void get_Ne(float *Ne_array); /* Electron density */
@@ -79,6 +82,28 @@ public:
   void get_Te(float *Te_array); /* Electron temperature */
   void get_Ne_Dregion(float *NeD_array); /* Electron density in D-region 60, 65, ..., 100km */
 };
+
+
+/*
+ * original_model
+ *  IRI2016を用いて、D層まで適切な電子密度を導出する
+ *  ある高度までは IRI2016 の Danilovモデルで導出、
+ *  そこより高い高度は IRI2016 にする。
+ *  2つのモデルの電子密度の指数部が最も近づく高度を中心に、
+ *  10kmを遷移高度として、指数部が線形に変化する
+ */
+void original_model
+(
+ const int N,
+ const float Altitude_min,
+ const float Altitude_step,
+ AndoLab::iri2016 &iri, /* 日付・時刻、緯度・軽度を設定済みのもの */
+ float *Ne             /* (Alt_max - Alt_min)/Alt_step + 1 個を確保しておく */
+ );
+  
+inline int fround(float f){
+  return int(f + 0.5);
+}
 
 }
 

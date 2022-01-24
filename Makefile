@@ -7,10 +7,11 @@ OPTS = -O3 -Wall -fPIC
 TEST_OPTS = -O3 -Wall -fPIC
 
 LIB_SUFFIX = _18
+#LIB_SUFFIX = _20
 TARGET = libiri2016$(LIB_SUFFIX).so
 
 FORTRAN_OBJS = cira.o igrf.o iridreg.o iriflip.o irifun.o irirtam.o irisub.o iritec.o
-OBJS = iri2016.o
+OBJS = iri2016.o original_model.o
 
 .PHONY: all install clean test
 
@@ -22,7 +23,7 @@ libiri2016$(LIB_SUFFIX).so: $(FORTRAN_OBJS) $(OBJS)
 %.o: %.for
 	gfortran -c $< $(OPTS) -cpp -DDATA_DIR=\'$(DATA_DIR)\'
 
-iri2016.o: iri2016.cpp iri2016.h
+%.o: %.cpp iri2016.h
 	g++ -c $< $(OPTS)
 
 test: test_main

@@ -73,7 +73,7 @@ void AndoLab::iri2016::set_height
   vend = height_end_km;
   vstp = height_step_km;
 
-  nstep = int( (vend - vbeg) / vstp );
+  nstep = int( (vend - vbeg) / vstp ) + 1;
 
   height = 100.0;
   h_tec_max = 0.0;
